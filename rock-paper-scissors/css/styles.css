@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #011526;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.container {
+  width: 40%;
+  margin: 0 auto;
+}
+
+h1 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 3.125em;
+  margin-top: 3.125em;
+}
+
+.btn {
+  display: block;
+  min-width: 40%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 0 auto 1.875em;
+  background-color: #048ABF;
+  padding: 0.9375em 1.875em;
+  border-radius: 0.625em;
+  border: 2px solid #fff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #fff;
+  border-color: #048ABF;
+  color: #011526;
+}
+.btn i {
+  display: inline-block;
+  padding-right: 0.5em;
+  font-size: 0.625em;
+}
+
+.rules {
+  margin: 0 auto 1.875em;
+  text-align: center;
+}
+.rules .rules-description {
+  width: 90%;
+  margin: 0 auto;
+  background-color: #02425B;
+  padding: 1em;
+  border-radius: 0.625em;
+}
+.rules .rules-description.hidden {
+  display: none;
+}
+.rules i {
+  font-size: 1.875em;
+  margin-right: 0.625em;
+}
+.rules i.rotate {
+  transform: rotate(90deg);
+}
+.rules i.mirror {
+  transform: scaleX(-1);
+}
+.rules i:last-child {
+  margin-right: 0;
+}
+
+.result {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.result .pc-option, .result .player-option {
+  width: 40%;
+  text-align: center;
+}
+.result .round-counter, .result .attempt-counter {
+  width: 100%;
+  text-align: center;
+}
+.result i {
+  font-size: 4.375em;
+}
+.result i.pc-rotate {
+  transform: rotate(90deg);
+}
+.result i.pc-mirror {
+  transform: scaleX(-1);
+}
+.result i.player-rotate-mirror {
+  transform: rotate(-90deg) scaleX(-1);
+}
+.result span.player-score, .result span.pc-score {
+  display: inline-block;
+  margin-top: 1.875em;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.game-buttons {
+  margin-top: 2.5em;
+  display: flex;
+  justify-content: center;
+}
+.game-buttons .again, .game-buttons .reset, .game-buttons .next-attempt {
+  display: none;
+}
+
+/* ********* RESPONSIVITY **********/
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .container {
+    width: 90%;
+  }
+}/*# sourceMappingURL=styles.css.map */

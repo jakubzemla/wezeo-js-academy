@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/bf99e7de58.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>RPS Game</title>
+</head>
+<body>
+    <section class="container">
+        <h1>Rock-paper-scissors game</h1>
+        <div class="rules">
+            <button class="btn rules-btn">Show game rules</button>
+            <div class="rules-description hidden">
+                <p>Rock-Paper-Scissors is a game played to settle disputes between two people.</p>
+                <p>The game is played with three possible hand signals that represent a rock, paper, and scissors.</p>
+                <div>
+                    <i class="fa-solid fa-hand-back-fist rotate"></i>
+                    <i class="fa-solid fa-hand"></i>
+                    <i class="fa-solid fa-hand-scissors mirror"></i>
+                </div>
+                <p>Rock wins against scissors; paper wins against rock; and scissors wins against paper. If both players throw the same hand signal, it is considered a tie, and play resumes until there is a clear winner.</p>
+                <p>The hand signals are given simultaneously by both players.</p>
+            </div>
+        </div>
+        <button class="btn start-btn"><i class="fa-solid fa-play"></i>Play Game</button>
+        <div class="result">
+            <div class="pc-option">
+                <h2>PC</h2>
+                <div class="pc-icon">
+                    <i class="fa-solid fa-hand"></i>
+                </div>
+                <span class="pc-score">Score:</span>
+                
+            </div>
+            <div class="player-option">
+                <h2>Player</h2>
+                <div class="player-icon">
+                    <i class="fa-solid fa-hand pc-mirror"></i>
+                </div>
+                <span class="player-score">Score:</span>
+            </div>
+            <h3 class="attempt-counter">Attempts: 0</h3>
+            <h3 class="round-counter">Round: 0</h3>
+        </div>
+        <div class="game-buttons">
+            <button class="btn again"><i class="fa-solid fa-rotate-right"></i>Next Round</button>
+            <button class="btn next-attempt">New Attempt</button>
+            <button class="btn reset"><i class="fa-solid fa-power-off"></i>End (reset) game</button>
+        </div>
+    </section>
+    
+    <script src="./scripts.js"></script>
+</body>
+</html>

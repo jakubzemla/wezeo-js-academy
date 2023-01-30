@@ -1,0 +1,149 @@
+@import './partials/variables';
+@import './partials/functions';
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $primary-color;
+    color: $text-color;
+    font: {
+        family: sans-serif;
+        size: 16px;
+    }
+}
+
+.container {
+    width: 40%;
+    margin: 0 auto;
+}
+
+h1 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: em(50);
+    margin-top: em(50);
+}
+
+.btn {
+    display: block;
+    min-width: 40%;
+    width: max-content;
+    margin: 0 auto em(30);
+    background-color: $fourth-color;
+    padding: em(15) em(30);
+    border-radius: em(10);
+    border: 2px solid $text-color;
+    color: $text-color;
+    font-weight: bold;
+    font-size: em(16);
+    text-transform: uppercase;
+    transition: all .3s;
+    cursor: pointer;
+    &:hover {
+        background-color: $text-color;
+        border-color: $fourth-color;
+        color: $primary-color;
+    }
+
+    i {
+        display: inline-block;
+        padding-right: em(8);
+        font-size: em(10);
+    }
+}
+
+.rules {
+    margin: 0 auto em(30);
+    text-align: center;
+    .rules-description {
+        width: 90%;
+        margin: 0 auto;
+        background-color: $secondary-color;
+        padding: em(16);
+        border-radius: em(10);
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    i {
+        font-size: em(30);
+        margin-right: em(10);
+        &.rotate {
+            transform: rotate(90deg)
+        }
+        &.mirror {
+            transform: scaleX(-1)
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.result {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    .pc-option, .player-option {
+        width: 40%;
+        text-align: center;
+    }
+    .round-counter, .attempt-counter {
+        width: 100%;
+        text-align: center;
+    }
+
+    i {
+        font-size: em(70);
+        &.pc-rotate {
+            transform: rotate(90deg)
+        }
+        &.pc-mirror {
+            transform: scaleX(-1)
+        }
+        &.player-rotate-mirror {
+            transform: rotate(-90deg) scaleX(-1);
+        }
+    }
+
+    span.player-score, span.pc-score {
+        display: inline-block;
+        margin-top: em(30);
+        font-size: em(20);
+        font-weight: bold;
+    }
+}
+
+.game-buttons {
+    margin-top: em(40);
+    display: flex;
+    justify-content: center;
+
+    .again, .reset, .next-attempt {
+        display: none;
+    }
+}
+
+
+/* ********* RESPONSIVITY **********/
+@media screen and (max-width: 1024px) {
+    .container {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .container {
+        width: 90%;
+    }
+}
