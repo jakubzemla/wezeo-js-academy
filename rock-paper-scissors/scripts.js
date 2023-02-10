@@ -12,21 +12,20 @@ let playerIcon = document.querySelector(".player-icon")
 let pcPageScore = document.querySelector(".pc-score")
 let playerPageScore = document.querySelector(".player-score")
 
-
 // VARIABLES AND CONSTANTS
 const gameOptions = ['R', 'P', 'S']
 let pcScore = 0
 let playerScore = 0
-let pcRandomOption
-let playerOption
-let winner
+let pcRandomOption = null
+let playerOption = null
+let winner = null
 let roundAttempts = 1
 let gamesCount = 1
 let historyOfRound = []
 let gameHistory = []
-
-
-
+let rockCount = 0
+let paperCount = 0
+let scissorsCount = 0  
 
 const showRules = () => {
     rulesDiv = document.querySelector('.rules-description')
@@ -37,7 +36,6 @@ const showRules = () => {
         rulesBtn.innerText = "Show game rules"
     }
 }
-
 
 const initGame = () => {
     startBtn.style.display = "none"
@@ -52,17 +50,11 @@ const initGame = () => {
     console.log(`Round ${gamesCount}; Attempt number: ${roundAttempts}`)
     getPcOption()
     getPlayerOption()
-    while (!gameOptions.includes(playerOption)) {
-        alert("You have to choose only from these letter: 'R','P', 'S', Let's try again.")
-        getPlayerOption()
-    }
-    getIcons()
     roundCounter.innerText = `Round ${gamesCount}`
     getResult()
     attemptsCounter.innerText = `Attempts: ${roundAttempts}`
     
 }
-
 
 const getPcOption = () => {
     let random = Math.floor(Math.random()*3)
@@ -70,61 +62,17 @@ const getPcOption = () => {
     console.log(`PC Option: ${pcRandomOption}`)
 }
 
-
 const getPlayerOption = () => {
     playerOption = prompt("Please, select one of the options. Write\n'R' for rock,\n'P' for paper,\n'S' for scissors.\nThen press Enter on your keyboard.").toUpperCase()
     if (gameOptions.includes(playerOption)) {
         console.log(`Player Option: ${playerOption}`)
     } else {
-        playerOption = ""
-        return
+        alert("You have to choose only from these letter: 'R','P', 'S', Let's try again.")
+        return getPlayerOption()
     }
 }
 
-
-// Change option icons on page
-const getIcons = () => {
-    pcIcon = document.querySelector(".pc-icon")
-    playerIcon = document.querySelector(".player-icon")
-    switch (pcRandomOption) {
-        case 'R':
-            pcIcon.innerHTML = '<i class="fa-solid fa-hand-back-fist pc-rotate"></i>'
-            break
-        case 'P':
-            pcIcon.innerHTML = '<i class="fa-solid fa-hand"></i>'
-            break
-        case 'S':
-            pcIcon.innerHTML = '<i class="fa-solid fa-hand-scissors pc-mirror"></i>'
-    }
-    switch (playerOption) {
-        case 'R':
-            playerIcon.innerHTML = '<i class="fa-solid fa-hand-back-fist player-rotate-mirror"></i>'
-            break
-        case 'P':
-            playerIcon.innerHTML = '<i class="fa-solid fa-hand pc-mirror"></i>'
-            break
-        case 'S':
-            playerIcon.innerHTML = '<i class="fa-solid fa-hand-scissors"></i>'
-    }
-}
-
-
-//Set color for winner and loser or if the result is draw
-const getColors = () => {
-    if (winner === "player") {
-        pcIcon.style.color = "red"
-        playerIcon.style.color = "green"
-    } else if (winner === "pc") {
-        pcIcon.style.color = "green"
-        playerIcon.style.color = "red"
-    } else {
-        pcIcon.style.color = "white"
-        playerIcon.style.color = "white"
-    }
-}
-
-
-// Show result and update the score
+// Show result, update the score, set icons and
 const getResult = () => {
     let resultMessage = ""
     if (pcRandomOption === playerOption) {
@@ -132,60 +80,103 @@ const getResult = () => {
         winner = "no one"
         againBtn.style.display = "none"
         nextAtt.style.display = "block"
-    } else {
-        nextAtt.style.display = "none"
         switch (playerOption) {
             case 'R':
-                if (pcRandomOption === "P") {
-                    resultMessage = "The PC won this round!"
-                    winner = "pc"
-                    pcScore++
-                } else {
-                    resultMessage = "You won this round!"
-                    winner = "player"
-                    playerScore++
-                }
+                playerIcon.innerHTML = '<i class="fa-solid fa-hand-back-fist player-rotate-mirror"></i>'
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand-back-fist pc-rotate"></i>'
+                rockCount += 2
                 break
             case 'P':
-                if (pcRandomOption === "S") {
-                    resultMessage = "The PC won this round!"
-                    winner = "pc"
-                    pcScore++
-                } else {
-                    resultMessage = "You won this round!"
-                    winner = "player"
-                    playerScore++
-                }
+                playerIcon.innerHTML = '<i class="fa-solid fa-hand pc-mirror"></i>'
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand"></i>'
+                paperCount += 2
                 break
             case 'S':
-                if (pcRandomOption === "R") {
-                    resultMessage = "The PC won this round!"
-                    winner = "pc"
-                    pcScore++
-                } else {
-                    resultMessage = "You won this round!"
-                    winner = "player"
-                    playerScore++
-                }
+                playerIcon.innerHTML = '<i class="fa-solid fa-hand-scissors"></i>'
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand-scissors pc-mirror"></i>'
+                scissorsCount += 2
                 break
         }
+        playerIcon.style.color = "white"
+        pcIcon.style.color = "white"
+        alert(resultMessage)
+        roundHistory()
+        return
+    } 
+    nextAtt.style.display = "none"
+    switch (playerOption) {
+        case 'R':
+            playerIcon.innerHTML = '<i class="fa-solid fa-hand-back-fist player-rotate-mirror"></i>'
+            rockCount++
+            if (pcRandomOption === "P") {
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand"></i>'
+                playerIcon.style.color = "red"
+                pcIcon.style.color = "green"
+                resultMessage = "The PC won this round!"
+                winner = "pc"
+                pcScore++
+                paperCount++
+            } else {
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand-scissors pc-mirror"></i>'
+                playerIcon.style.color = "green"
+                pcIcon.style.color = "red"
+                resultMessage = "You won this round!"
+                winner = "player"
+                playerScore++
+                scissorsCount++
+            }
+            break
+        case 'P':
+            playerIcon.innerHTML = '<i class="fa-solid fa-hand pc-mirror"></i>'
+            paperCount++
+            if (pcRandomOption === "S") {
+                playerIcon.style.color = "red"
+                pcIcon.style.color = "green"
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand-scissors pc-mirror"></i>'
+                resultMessage = "The PC won this round!"
+                winner = "pc"
+                pcScore++
+                scissorsCount++
+            } else {
+                playerIcon.style.color = "green"
+                pcIcon.style.color = "red"
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand-back-fist pc-rotate"></i>'
+                resultMessage = "You won this round!"
+                winner = "player"
+                playerScore++
+                rockCount++
+            }
+            break
+        case 'S':
+            playerIcon.innerHTML = '<i class="fa-solid fa-hand-scissors"></i>'
+            scissorsCount++
+            if (pcRandomOption === "R") {
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand-back-fist pc-rotate"></i>'
+                playerIcon.style.color = "red"
+                pcIcon.style.color = "green"
+                resultMessage = "The PC won this round!"
+                winner = "pc"
+                pcScore++
+                rockCount++
+            } else {
+                pcIcon.innerHTML = '<i class="fa-solid fa-hand"></i>'
+                playerIcon.style.color = "green"
+                pcIcon.style.color = "red"
+                resultMessage = "You won this round!"
+                winner = "player"
+                playerScore++
+                paperCount++
+            }
+            break
     }
     alert(resultMessage)
     pcPageScore.innerText = `Score: ${pcScore}`
     playerPageScore.innerText = `Score: ${playerScore}`
-    console.log(`Winner is ${winner}`)
-    console.log(`PC score: ${pcScore}`)
-    console.log(`Player score: ${playerScore}`)
-    getColors()
-    if (playerOption !== pcRandomOption) {
-        roundHistory()
-        collectResults()
-        gamesCount++
-    } else {
-        roundHistory()
-    }
+    console.log(`Winner is ${winner}\nPC score: ${pcScore}\nPlayer score: ${playerScore}`)
+    roundHistory()
+    collectResults()
+    gamesCount++
 }
-
 
 // GAME HISTORY
 const roundHistory = () => {
@@ -196,9 +187,6 @@ const collectResults = () => {
     gameHistory.push(historyOfRound)
     historyOfRound = []
     let count = 1;
-    let rockCount = 0
-    let paperCount = 0
-    let scissorsCount = 0  
     console.log("Games history:")
     for (let rnd of gameHistory) {
         console.log(`Round-${count}:`)
@@ -207,37 +195,9 @@ const collectResults = () => {
             console.log(att)
         }
     }
-    
-    for (let round of gameHistory) {
-        for (let attempt of round) {
-            switch (attempt.optionPc) {
-                case "R":
-                    rockCount++
-                    break
-                case "P":
-                    paperCount++
-                    break
-                case "S":
-                    scissorsCount++
-                    break
-                }
-            switch (attempt.optionPlayer) {
-                case "R":
-                    rockCount++
-                    break
-                case "P":
-                    paperCount++
-                    break
-                case "S":
-                    scissorsCount++
-                    break
-            }
-        }
-    }
     console.log(`Counts of options:\n\tRock: ${rockCount}\n\tPaper: ${paperCount}\n\tScissors: ${scissorsCount}`)
     console.log("--------------------------------------------------------------------")
 }
-
 
 const resetGame = () => {
     pcScore = 0
@@ -245,12 +205,13 @@ const resetGame = () => {
     gamesCount = 1
     roundAttempts = 1
     gameHistory = []
+    historyOfRound = []
     resultDiv.style.display="none"
     againBtn.style.display="none"
     resetBtn.style.display="none"
     startBtn.style.display="block"
+    nextAtt.style.display="none"
 }
-
 
 rulesBtn.addEventListener("click", showRules)
 startBtn.addEventListener("click", initGame)
@@ -259,4 +220,3 @@ againBtn.addEventListener("click", initGame)
 resetBtn.addEventListener("click", resetGame)
 nextAtt.addEventListener("click", () => roundAttempts++)
 nextAtt.addEventListener("click", initGame)
-
