@@ -206,6 +206,9 @@ const resetGame = () => {
     roundAttempts = 1
     gameHistory = []
     historyOfRound = []
+    rockCount = 0
+    paperCount = 0
+    scissorsCount = 0  
     resultDiv.style.display="none"
     againBtn.style.display="none"
     resetBtn.style.display="none"
