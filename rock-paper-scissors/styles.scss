@@ -109,6 +109,30 @@ h1 {
         &.player-rotate-mirror {
             transform: rotate(-90deg) scaleX(-1);
         }
+        
+        &#pc-icon.winner {
+            &::before {
+                color: green;
+            }
+        }
+
+        &#player-icon.winner {
+            &::before {
+                color: green;
+            }
+        }
+
+        &#pc-icon.looser {
+            &::before {
+                color: red;
+            }
+        }
+
+        &#player-icon.looser {
+            &::before {
+                color: red;
+            }
+        }
     }
 
     span.player-score, span.pc-score {
@@ -126,6 +150,30 @@ h1 {
 
     .again, .reset, .next-attempt {
         display: none;
+    }
+}
+
+.total-winner {
+    position: absolute;
+    bottom: 2.5%;
+    left: 10%;
+    height: 95%;
+    width: 80%;
+    border: 2px solid $text-color;
+    background-color: rgba(0, 0, 0, .97);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5em;
+
+    .end-title {
+        font-size: 3em;
+        margin-bottom: 0;
+    }
+
+    .end-info {
+        font-size: 2em;
     }
 }
 
